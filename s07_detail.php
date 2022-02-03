@@ -4,7 +4,7 @@
 <?php
 
 session_start();
-require_once('funcs.php');
+require_once('s04_funcs.php');
 loginCheck();
 
 
@@ -13,7 +13,7 @@ $pdo = db_conn();
 
 
 //２．データ登録SQL作成
-$stmt = $pdo->prepare('SELECT * FROM gs_an_table WHERE id=:id;');
+$stmt = $pdo->prepare('SELECT * FROM book_table WHERE id=:id;');
 $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $status = $stmt->execute();
 
@@ -55,20 +55,18 @@ if ($status == false) {
     <!-- Head[End] -->
 
     <!-- Main[Start] -->
-    <form method="POST" action="update.php">
+    <form method="POST" action="s06_update.php">
         <div class="jumbotron">
             <fieldset>
                 <legend>[編集]</legend>
-                <label>名前：<input type="text" name="name" value="<?= $row['name'] ?>"></label><br>
-                <label>Email：<input type="text" name="email" value="<?= $row['email'] ?>">
-                <label>年齢：<input type="text" name="age" value="<?= $row['age'] ?>"></label><br>
-                <label><textArea name="naiyou" rows="4" cols="40"><?= $row['naiyou'] ?></textArea></label><br>
+                <label>タイトル：<input type="text" name="title"></label><br>
+                <label>著者：<input type="text" name="author"></label><br>
+                <label>出版社：<input type="text" name="publisher"></label><br>
                 <input type="submit" value="送信">
                 <input type="hidden" name="id" value="<?= $id ?>">
             </fieldset>
         </div>
     </form>
-    <!-- Main[End] -->
 
 
 </body>

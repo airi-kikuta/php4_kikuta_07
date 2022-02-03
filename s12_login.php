@@ -24,13 +24,14 @@
         <nav class="navbar navbar-default">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.php">データ登録</a>
+                    <a class="navbar-brand" href="s01_index.php">データ登録</a>
                 </div>
             </div>
         </nav>
     </header>
+    
     <!-- lLOGINogin_act.php は認証処理用のPHPです。 -->
-    <form name="form1" action="login_act.php" method="post">
+    <form name="form1" action="s13_login_act.php" method="post">
         ID:<input type="text" name="lid" />
         PW:<input type="password" name="lpw" />
         <input type="submit" value="LOGIN" />

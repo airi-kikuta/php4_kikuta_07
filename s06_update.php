@@ -1,27 +1,25 @@
 <?php
 //1. POSTデータ取得
-$name   = $_POST['name'];
-$email  = $_POST['email'];
-$naiyou = $_POST['naiyou'];
-$age    = $_POST['age'];
+$title   = $_POST['title'];
+$author  = $_POST['author'];
+$publisher = $_POST['publisher'];
 $id     = $_POST['id'];
 
 //2. DB接続します
-require_once('funcs.php');
+require_once('s04_funcs.php');
 $pdo = db_conn();
 
 //３．データ登録SQL作成
-$stmt = $pdo->prepare('UPDATE gs_an_table SET name=:name,email=:email,age=:age,naiyou=:naiyou WHERE id=:id;');
-$stmt->bindValue(':name',   $name,   PDO::PARAM_STR);
-$stmt->bindValue(':email',  $email,  PDO::PARAM_STR);
-$stmt->bindValue(':age',    $age,    PDO::PARAM_INT);
-$stmt->bindValue(':naiyou', $naiyou, PDO::PARAM_STR);
-$stmt->bindValue(':id',     $id,     PDO::PARAM_INT);
+$stmt = $pdo->prepare('UPDATE book_table SET title=:title,author=:author,publisher=:publisher WHERE id=:id;');
+$stmt->bindValue(':title', $title, PDO::PARAM_STR);
+$stmt->bindValue(':author', $author, PDO::PARAM_STR);
+$stmt->bindValue(':publisher', $publisher, PDO::PARAM_STR);
+$stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $status = $stmt->execute(); //実行
 
 //４．データ登録処理後
 if ($status === false) {
     sql_error($stmt);
 } else {
-    redirect('select.php');
+    redirect('s03_select.php');
 }

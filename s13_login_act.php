@@ -7,13 +7,13 @@ $lid = $_POST['lid'];
 $lpw = $_POST['lpw'];
 
 //1.  DB接続します
-require_once('funcs.php');
+require_once('s04_funcs.php');
 $pdo = db_conn();
 
 //2. データ登録SQL作成
 // gs_user_tableに、IDとWPがあるか確認する。
 // $stmt = $pdo->prepare('SELECT * FROM gs_user_table WHERE lid = :lid AND lpw = :lpw');
-$stmt = $pdo->prepare('SELECT * FROM gs_user_table WHERE lid = :lid');
+$stmt = $pdo->prepare('SELECT * FROM book_user_table WHERE lid = :lid');
 $stmt->bindValue(':lid', $lid, PDO::PARAM_STR);
 // $stmt->bindValue(':lpw', $lpw, PDO::PARAM_STR);
 $status = $stmt->execute();
@@ -30,10 +30,10 @@ $val = $stmt->fetch();
 if ($val['id'] != '' && password_verify($lpw, $val['lpw'])) {
     //Login成功時 該当レコードがあればSESSIONに値を代入
     $_SESSION['chk_ssid'] = session_id();
-    $_SESSION['kanri_flg'] = $val['kanri_flg'];
+    $_SESSION['admin'] = $val['admin'];
     $_SESSION['name'] = $val['name'];
-    header('Location: select.php');
+    header('Location: s03_select.php');
 } else {
     //Login失敗時(Logout経由)
-    header('Location: login.php');
+    header('Location: s12_login.php');
 }
