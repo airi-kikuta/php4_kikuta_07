@@ -1,14 +1,10 @@
-
-<!-- 更新の編集画面 -->
-
 <?php
-
 session_start();
-require_once('s04_funcs.php');
+require_once('funcs.php');
 loginCheck();
 
 
-$id = $_GET['id']; //?id~**を受け取る
+$id = $_GET['id'];
 $pdo = db_conn();
 
 
@@ -18,13 +14,14 @@ $stmt->bindValue(':id', $id, PDO::PARAM_INT);
 $status = $stmt->execute();
 
 //３．データ表示
-if ($status == false) {
+$view = '';
+if ($status === false) {
     sql_error($stmt);
 } else {
-    $row = $stmt->fetch();
+    $view = $stmt->fetch();
 }
-?>
 
+?>
 
 
 <!DOCTYPE html>
@@ -55,18 +52,19 @@ if ($status == false) {
     <!-- Head[End] -->
 
     <!-- Main[Start] -->
-    <form method="POST" action="s06_update.php">
+    <form method="POST" action="update.php">
         <div class="jumbotron">
             <fieldset>
                 <legend>[編集]</legend>
-                <label>タイトル：<input type="text" name="title"></label><br>
-                <label>著者：<input type="text" name="author"></label><br>
-                <label>出版社：<input type="text" name="publisher"></label><br>
+                <label>タイトル：<input type="text" name="title" value=<?= $view['title'] ?>></label><br>
+                <label>著者：<input type="text" name="author" value=<?= $view['author'] ?>></label><br>
+                <label>出版社：<input type="text" name="publisher" value=<?= $view['publisher'] ?>></label><br>
                 <input type="submit" value="送信">
                 <input type="hidden" name="id" value="<?= $id ?>">
             </fieldset>
         </div>
     </form>
+    <!-- Main[End] -->
 
 
 </body>

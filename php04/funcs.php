@@ -1,14 +1,15 @@
 <?php
 //XSS対応（ echoする場所で使用！それ以外はNG ）
-function h($str) {
+function h($str)
+{
     return htmlspecialchars($str, ENT_QUOTES);
 }
 
-
 //DB接続
-function db_conn() {
+function db_conn()
+{
     try {
-        $db_name = 'book_db';    //データベース名
+        $db_name = 'gs_db4';    //データベース名
         $db_id   = 'root';      //アカウント名
         $db_pw   = 'root';      //パスワード：XAMPPはパスワード無しに修正してください。
         $db_host = 'localhost'; //DBホスト
@@ -19,24 +20,25 @@ function db_conn() {
     }
 }
 
-
 //SQLエラー
-function sql_error($stmt) {
+function sql_error($stmt)
+{
     //execute（SQL実行時にエラーがある場合）
     $error = $stmt->errorInfo();
     exit('SQLError:' . $error[2]);
 }
 
-
 //リダイレクト
-function redirect($file_name) {
+function redirect($file_name)
+{
     header('Location: ' . $file_name);
     exit();
 }
 
 
 // ログインチェク処理 loginCheck()
-function loginCheck() {
+function loginCheck()
+{
     if ($_SESSION['chk_ssid'] != session_id()) {
         exit('LOGIN ERROR');
     } else {
